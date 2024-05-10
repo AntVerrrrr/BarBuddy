@@ -47,19 +47,20 @@ app.post('/signup', async (req, res) => {
 });
   
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    db.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        if (results.length > 0 && await bcrypt.compare(password, results[0].password)) {
-            const token = jwt.sign({ id: results[0].id }, 'yourSecretKey', { expiresIn: '1h' });
-            res.status(200).send({ message: 'Logged in successfully', token });
-        } else {
-            res.status(401).send({ message: 'Invalid credentials' });
-        }
-    });
+  const { email, password } = req.body;
+  db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+      if (err) {
+          return res.status(500).send(err);
+      }
+      if (results.length > 0 && await bcrypt.compare(password, results[0].password)) {
+          const token = jwt.sign({ id: results[0].id }, 'yourSecretKey', { expiresIn: '1h' });
+          res.status(200).send({ message: 'Logged in successfully', token });
+      } else {
+          res.status(401).send({ message: 'Invalid credentials' });
+      }
+  });
 });
+
 
 // 사용자 프로필 업데이트 API
 app.post('/update-profile', (req, res) => {
