@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3"
+  }
+}
