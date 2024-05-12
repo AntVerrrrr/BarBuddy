@@ -30,9 +30,21 @@ import './assets/vendor/swiper/swiper-bundle.min.js';
 
 
 function Carousel() {
-
+  const [isLogged, setIsLogged] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [showLogin, setShowLogin] = useState(false);
+  const [token, setToken] = useState('');
+  const [buttonText, setButtonText] = useState("Login");
+
+  const handleLoginSuccess = (token) => {
+    localStorage.setItem('token', token);
+    setIsLogged(true);
+    setButtonText("MyPage");
+  };
+  
+
+
+  
   const slides = [
     {
       title: "우아한 향연, 술의 세계",
@@ -84,10 +96,17 @@ function Carousel() {
                 </a>
               </li>
               <li>
-                <a className="getstarted scrollto" style={{ textDecoration: 'none' }} onClick={() => setShowLogin(true)}>
-                  Get Started
-                </a>
+                {isLogged ? (
+                  <a className="getstarted scrollto" style={{ textDecoration: 'none' }} onClick={() => handleLoginSuccess(token)}>
+                    {buttonText}
+                  </a>
+                ) : (
+                  <a className="getstarted scrollto" style={{ textDecoration: 'none' }} onClick={() => setShowLogin(true)}>
+                    {buttonText}
+                  </a>
+                )}
               </li>
+
               
 
             </ul>
