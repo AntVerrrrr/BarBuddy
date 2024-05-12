@@ -19,7 +19,7 @@ app.use(cors(corsOptions));
 // JSON 요청 본문 파싱을 위한 설정
 app.use(bodyParser.json());
 
-// 데이터베이스 연결 설정
+// 데이터베이스 연결 설정1
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',  // MySQL 사용자 이름
