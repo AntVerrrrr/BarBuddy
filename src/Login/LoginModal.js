@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import kakaoImage from '../kakao_login_large_narrow.png';
 import './LoginModal.css';
 
 function LoginModal({ onClose }) {
@@ -56,10 +55,7 @@ function LoginModal({ onClose }) {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <button type="button" onClick={handleLocalLogin}>Local Login</button>
-            <button type="button" onClick={handleKakaoLogin} style={{ border: 'none', backgroundColor: 'none', padding: '0' }}>
-              <img src={kakaoImage} alt="카카오" />
-            </button>
+            <button type="button" onClick={handleLocalLogin}>Login</button>
             <button type="button" onClick={handleSignup} style={{ marginTop: '10px', backgroundColor: 'green' }}>
               Sign Up
             </button>
