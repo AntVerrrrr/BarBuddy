@@ -151,6 +151,8 @@ function SpiritDetails() {
         </Link>
         <button onClick={handleDelete}>Delete</button>
       </div>
+
+      
       <div className="container">
         <h2>Cocktails made with {spirit.name}</h2>
         <div className="cocktail-list">

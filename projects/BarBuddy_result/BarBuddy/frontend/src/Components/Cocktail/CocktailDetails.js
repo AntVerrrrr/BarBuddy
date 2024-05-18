@@ -176,6 +176,8 @@ function CocktailDetails() {
         </Link>
         <button onClick={handleDelete}>Delete</button>
       </div>
+
+      
       <div className="container">
         <h2>Base Spirits for this Cocktail</h2>
         <div className="spirit-list">
