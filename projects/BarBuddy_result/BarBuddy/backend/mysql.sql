@@ -18,30 +18,35 @@ CREATE TABLE IF NOT EXISTS `User` (
     PRIMARY KEY (`ID`)
 );
 -- spirit
-CREATE TABLE spirits (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    type VARCHAR(255),
-    alcohol_degree DECIMAL(5, 2),
-    price DECIMAL(8, 2),
-    image_path VARCHAR(255)
-);
+CREATE TABLE `spirits` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `alcohol_degree` decimal(5,2) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `description` text,
+  `image_path` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) 
 
 --cocktails
-CREATE TABLE cocktails (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    base_spirit VARCHAR(255) NOT NULL,
-    category VARCHAR(255),
-    garnish VARCHAR(255),
-    glass_type VARCHAR(255),
-    instructions TEXT,
-    image_path VARCHAR(255),
-    description TEXT,
-    alcohol_degree DECIMAL(5, 2),
-    ingredients JSON,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+CREATE TABLE `cocktails` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `base_spirits` json NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `garnish` varchar(255) DEFAULT NULL,
+  `glass_type` varchar(255) DEFAULT NULL,
+  `instructions` text,
+  `description` text,
+  `alcohol_degree` float DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  `ingredients` json NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) 
+
 
 
 
