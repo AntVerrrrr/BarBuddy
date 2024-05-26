@@ -4,11 +4,10 @@ import './LoginModal.css';
 function LoginModal({ onClose }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
-  const [isLogged, setIsLogged] = useState(false); // 추가
+  const [isLogged, setIsLogged] = useState(false);
 
   const handleKakaoLogin = () => {
     window.location.href = '/auth/kakao';
@@ -21,30 +20,23 @@ function LoginModal({ onClose }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId: email, userPassword: password }),
+        body: JSON.stringify({ email, password }),
       });
-  
+
       if (!response.ok) {
         throw new Error('로그인 요청에 실패했습니다.');
       }
-  
+
       const data = await response.json();
-  
-      // response 객체 내의 속성들을 직접 접근하여 값 가져오기
       const { token } = data.response;
-      // 토큰 저장 등의 작업 수행
       localStorage.setItem('token', token);
-  
-      // 로그인 성공 후 상태 변경
+
       setIsLogged(true);
       onClose();
     } catch (error) {
       console.error('로그인 중 에러 발생:', error);
-      // 에러 처리 추가
     }
   };
-  
-  
 
   const handleSignup = () => {
     setIsSignupModalOpen(true);
@@ -54,17 +46,17 @@ function LoginModal({ onClose }) {
     setIsSignupModalOpen(false);
   };
 
-  const handleSignupSubmit = async () => {
+  const handleSignupSubmit = async (event) => {
+    event.preventDefault();
+
     try {
       const response = await fetch('http://localhost:3001/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId: signupEmail, password: signupPassword }),
+        body: JSON.stringify({ email: signupEmail, password: signupPassword }),
       });
-
-      const data = await response.json();
 
       if (!response.ok) {
         throw new Error('회원가입에 실패했습니다.');

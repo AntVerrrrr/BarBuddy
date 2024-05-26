@@ -1,61 +1,44 @@
--- Web_Back 데이터베이스 생성
+-- 데이터베이스 생성
 CREATE DATABASE IF NOT EXISTS BarBuddy;
-
--- Web_Back 데이터베이스 선택
 USE BarBuddy;
 
 -- User 테이블 생성
 CREATE TABLE IF NOT EXISTS `User` (
     `ID` INT NOT NULL AUTO_INCREMENT,
-    -- `personalID` VARCHAR(255) NULL,
     `password` VARCHAR(255) NULL,
-    -- `name` VARCHAR(255) NULL,
-    -- `nickname` VARCHAR(255) NULL,
-    -- `phone` VARCHAR(20) NULL,
     `email` VARCHAR(255) NULL,
-    -- `birthdate` DATE NULL,
-    -- `gender` VARCHAR(10) NULL,
     PRIMARY KEY (`ID`)
 );
--- spirit
-CREATE TABLE `spirits` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `type` varchar(100) DEFAULT NULL,
-  `alcohol_degree` decimal(5,2) DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `description` text,
-  `image_path` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+
+-- spirits 테이블 생성
+CREATE TABLE IF NOT EXISTS `spirits` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `type` VARCHAR(100) DEFAULT NULL,
+  `alcohol_degree` DECIMAL(5,2) DEFAULT NULL,
+  `price` DECIMAL(10,2) DEFAULT NULL,
+  `description` TEXT,
+  `image_path` VARCHAR(255) DEFAULT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) 
+);
 
---cocktails
-CREATE TABLE `cocktails` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `base_spirits` json NOT NULL,
-  `category` varchar(255) DEFAULT NULL,
-  `garnish` varchar(255) DEFAULT NULL,
-  `glass_type` varchar(255) DEFAULT NULL,
-  `instructions` text,
-  `description` text,
-  `alcohol_degree` float DEFAULT NULL,
-  `image_path` varchar(255) DEFAULT NULL,
-  `ingredients` json NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+-- cocktails 테이블 생성
+CREATE TABLE IF NOT EXISTS `cocktails` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `base_spirits` JSON NOT NULL,
+  `category` VARCHAR(255) DEFAULT NULL,
+  `garnish` VARCHAR(255) DEFAULT NULL,
+  `glass_type` VARCHAR(255) DEFAULT NULL,
+  `instructions` TEXT,
+  `description` TEXT,
+  `alcohol_degree` FLOAT DEFAULT NULL,
+  `image_path` VARCHAR(255) DEFAULT NULL,
+  `ingredients` JSON NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) 
-
-
-
-
-
-
-
-
-
-
+);
 
 -- Image 테이블 생성
 CREATE TABLE IF NOT EXISTS `Image` (
@@ -72,8 +55,8 @@ CREATE TABLE IF NOT EXISTS `Profile` (
     `userID` INT NOT NULL,
     `imageID` INT NOT NULL,
     PRIMARY KEY (`ID`),
-    FOREIGN KEY (`userID`) REFERENCES `User` (`ID`),
-    FOREIGN KEY (`imageID`) REFERENCES `Image` (`ID`)
+    FOREIGN KEY (`userID`) REFERENCES `User` (`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`imageID`) REFERENCES `Image` (`ID`) ON DELETE CASCADE
 );
 
 -- Board 테이블 생성
@@ -95,8 +78,8 @@ CREATE TABLE IF NOT EXISTS `Post` (
     `userID` INT NOT NULL,
     `boardID` INT NOT NULL,
     PRIMARY KEY (`ID`),
-    FOREIGN KEY (`userID`) REFERENCES `User` (`ID`),
-    FOREIGN KEY (`boardID`) REFERENCES `Board` (`ID`)
+    FOREIGN KEY (`userID`) REFERENCES `User` (`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`boardID`) REFERENCES `Board` (`ID`) ON DELETE CASCADE
 );
 
 -- Comment 테이블 생성
@@ -108,6 +91,6 @@ CREATE TABLE IF NOT EXISTS `Comment` (
     `postID` INT NOT NULL,
     `userID` INT NOT NULL,
     PRIMARY KEY (`ID`),
-    FOREIGN KEY (`postID`) REFERENCES `Post` (`ID`),
-    FOREIGN KEY (`userID`) REFERENCES `User` (`ID`)
+    FOREIGN KEY (`postID`) REFERENCES `Post` (`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`userID`) REFERENCES `User` (`ID`) ON DELETE CASCADE
 );

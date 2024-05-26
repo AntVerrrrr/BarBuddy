@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
 exports.login = (req, res) => {
-  const { userId, userPassword } = req.body;
+  const { email, password } = req.body;
 
   // 사용자 정보 조회
-  const query = `SELECT * FROM User WHERE personalID = ?`;
-  mysqlConnection.query(query, [userId], (error, results, fields) => {
+  const query = `SELECT * FROM User WHERE email = ?`; // 칼럼 이름을 email로 변경
+  mysqlConnection.query(query, [email], (error, results, fields) => {
     if (error) {
       console.error("Error executing MySQL query: " + error.message);
       res.status(500).json({ error: "Internal server error" });
@@ -24,7 +24,7 @@ exports.login = (req, res) => {
     const user = results[0];
 
     // 비밀번호 해시와 비교
-    bcrypt.compare(userPassword, user.password, (err, result) => {
+    bcrypt.compare(password, user.password, (err, result) => {
       if (err) {
         console.error("Error comparing passwords: " + err.message);
         res.status(500).json({ error: "Internal server error" });
@@ -38,16 +38,14 @@ exports.login = (req, res) => {
       }
 
       // 로그인 성공: JWT 토큰 생성 및 반환
-      const payload = { userId: user.personalID, nickname: user.nickname };
+      const payload = { email: user.email }; // email로 변경
       const secretKey = process.env.JWT_SECRET;
       const options = { expiresIn: '1h' };
       const token = jwt.sign(payload, secretKey, options);
-      
 
       // 사용자 데이터를 함께 보냄
       const response = {
-        userId: user.personalID,
-        nickname: user.nickname,
+        email: user.email,
         token: token // 토큰도 함께 전달
       };
       console.log("User logged in:", response);
@@ -58,25 +56,23 @@ exports.login = (req, res) => {
 
 exports.signup = async (req, res) => {
   try {
-      const { userId, password, nickname, name, birthdate, phoneNumber, gender } = req.body;
+    const { email, password } = req.body;
 
-      // 비밀번호 해싱
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // 비밀번호 해싱
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      // MySQL 쿼리 실행
-      mysqlConnection.query('INSERT INTO User (personalID, password, name, nickname, phone, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?, ?)', 
-          [userId, hashedPassword, name, nickname, phoneNumber, birthdate,  gender],
-          (error, results, fields) => {
-              if (error) {
-                  console.error('회원가입 실패:', error);
-                  return res.status(500).json({ message: '회원가입에 실패했습니다.' });
-              }
-              console.log('회원가입 성공:', results);
-              return res.status(200).json({ message: '회원가입에 성공했습니다.' });
-          }
-      );
+    // MySQL 쿼리 실행
+    const query = 'INSERT INTO User (email, password) VALUES (?, ?)';
+    mysqlConnection.query(query, [email, hashedPassword], (error, results, fields) => {
+      if (error) {
+        console.error('회원가입 실패:', error);
+        return res.status(500).json({ message: '회원가입에 실패했습니다.' });
+      }
+      console.log('회원가입 성공:', results);
+      return res.status(200).json({ message: '회원가입에 성공했습니다.' });
+    });
   } catch (error) {
-      console.error('회원가입 실패:', error);
-      return res.status(500).json({ message: '회원가입에 실패했습니다.' });
+    console.error('회원가입 실패:', error);
+    return res.status(500).json({ message: '회원가입에 실패했습니다.' });
   }
 };
