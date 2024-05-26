@@ -1,22 +1,61 @@
 -- Web_Back 데이터베이스 생성
-CREATE DATABASE IF NOT EXISTS BarBuddy_Back;
+CREATE DATABASE IF NOT EXISTS BarBuddy;
 
 -- Web_Back 데이터베이스 선택
-USE BarBuddy_Back;
+USE BarBuddy;
 
 -- User 테이블 생성
 CREATE TABLE IF NOT EXISTS `User` (
     `ID` INT NOT NULL AUTO_INCREMENT,
-    `personalID` VARCHAR(255) NULL,
+    -- `personalID` VARCHAR(255) NULL,
     `password` VARCHAR(255) NULL,
-    `name` VARCHAR(255) NULL,
-    `nickname` VARCHAR(255) NULL,
-    `phone` VARCHAR(20) NULL,
+    -- `name` VARCHAR(255) NULL,
+    -- `nickname` VARCHAR(255) NULL,
+    -- `phone` VARCHAR(20) NULL,
     `email` VARCHAR(255) NULL,
-    `birthdate` DATE NULL,
-    `gender` VARCHAR(10) NULL,
+    -- `birthdate` DATE NULL,
+    -- `gender` VARCHAR(10) NULL,
     PRIMARY KEY (`ID`)
 );
+-- spirit
+CREATE TABLE `spirits` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `alcohol_degree` decimal(5,2) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `description` text,
+  `image_path` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) 
+
+--cocktails
+CREATE TABLE `cocktails` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `base_spirits` json NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `garnish` varchar(255) DEFAULT NULL,
+  `glass_type` varchar(255) DEFAULT NULL,
+  `instructions` text,
+  `description` text,
+  `alcohol_degree` float DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  `ingredients` json NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) 
+
+
+
+
+
+
+
+
+
+
 
 -- Image 테이블 생성
 CREATE TABLE IF NOT EXISTS `Image` (

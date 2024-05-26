@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './assets/css/style.css';
 import LoginModal from './Login/LoginModal';
+import Navbar from './Components/Navbar.js'
 
 import backgroundImage1 from './assets/img/slide/slide-1.jpg';
 import backgroundImage2 from './assets/img/slide/slide-2.jpg';
@@ -27,24 +29,10 @@ import './assets/vendor/purecounter/purecounter_vanilla.js';
 import './assets/vendor/swiper/swiper-bundle.min.css';
 import './assets/vendor/swiper/swiper-bundle.min.js';
 
-
-
 function Carousel() {
-  const [isLogged, setIsLogged] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [showLogin, setShowLogin] = useState(false);
-  const [token, setToken] = useState('');
-  const [buttonText, setButtonText] = useState("Login");
-
-  const handleLoginSuccess = (token) => {
-    localStorage.setItem('token', token);
-    setIsLogged(true);
-    setButtonText("MyPage");
-  };
-  
-
-
-  
+  const navigate = useNavigate();
   const slides = [
     {
       title: "우아한 향연, 술의 세계",
@@ -74,6 +62,17 @@ function Carousel() {
     });
   };
 
+  const navigateToSpirits = () => {
+    navigate('/spirits'); // '/spirits'는 양주 페이지의 경로입니다.
+  };
+
+  const navigateToCocktails = () => {
+    navigate('/cocktails'); // '/cocktails'는 칵테일 조리법 페이지의 경로입니다.
+  };
+
+  const navigateToBars = () => {
+    navigate('/bars'); // '/bars'는 술집 페이지의 경로입니다.
+  };
 
   return (
     <>
@@ -82,42 +81,7 @@ function Carousel() {
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet"
       />
-      {/* ======= Header ======= */}
-      <header id="header" className="fixed-top d-flex align-items-center">
-        <div className="container d-flex align-items-center justify-content-between">
-          <h1 className="logo">
-            <a>BAR-BUDDY</a>
-          </h1>
-          <nav id="navbar" className="navbar">
-            <ul>
-              <li>
-                <a className="nav-link scrollto active" onClick={scrollToTop}>
-                  Home
-                </a>
-              </li>
-              <li>
-                {isLogged ? (
-                  <a className="getstarted scrollto" style={{ textDecoration: 'none' }} onClick={() => handleLoginSuccess(token)}>
-                    {buttonText}
-                  </a>
-                ) : (
-                  <a className="getstarted scrollto" style={{ textDecoration: 'none' }} onClick={() => setShowLogin(true)}>
-                    {buttonText}
-                  </a>
-                )}
-              </li>
-
-              
-
-            </ul>
-            {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
-            <i className="bi bi-list mobile-nav-toggle" />
-          </nav>
-          
-          {/* .navbar */}
-        </div>
-      </header>
-      {/* End Header */}
+   
       {/* ======= Hero Section ======= */}
       <section id="hero">
         <div className="hero-container">
@@ -165,6 +129,7 @@ function Carousel() {
         </div>
       </section>
       {/* End Hero */}
+
       <main id="main">
         {/* ======= About Section ======= */}
         <section id="about" className="about">
@@ -222,10 +187,12 @@ function Carousel() {
             <div className="section-title">
               <h2>Services</h2>
               <p>
-                Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex
-                aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos
-                quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                fugiat sit in iste officiis commodi quidem hic quas.
+              Bar Buddy는 양주와 칵테일을 사랑하는 이들을 위한 온라인 플랫폼입니다.
+              우리는 위스키, 진, 보드카 등의 다양한 양주에 관한 정보를 제공하고, 
+              집에서 손쉽게 만들 수 있는 다양한 칵테일 레시피를 공유합니다.
+              또한 커뮤니티를 통해 양주와 칵테일에 대한 이야기를 자유롭게 나눌 수 있는 공간을 제공하여,
+              주류 문화를 즐기는 이들끼리의 소통과 교류를 이끌어냅니다. 
+              우리의 서비스를 통해 여러분의 주류 여정이 더욱 풍부하고 즐거워지길 바랍니다.
               </p>
             </div>
             <div className="row">
@@ -234,11 +201,10 @@ function Carousel() {
                   <i className="bi bi-briefcase" />
                 </div>
                 <h4 className="title">
-                  <a href="">Lorem Ipsum</a>
+                  <a href="">다양한 양주의 정보</a>
                 </h4>
                 <p className="description">
-                  Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                  excepturi sint occaecati cupiditate non provident
+                  각종 주류의 알콜도수, 바디감, 향과 맛 등등 정보들을 제공합니다
                 </p>
               </div>
               <div className="col-lg-4 col-md-6 icon-box">
@@ -246,11 +212,11 @@ function Carousel() {
                   <i className="bi bi-card-checklist" />
                 </div>
                 <h4 className="title">
-                  <a href="">Dolor Sitema</a>
+                  <a href="">각종 칵테일 레시피 공유</a>
                 </h4>
                 <p className="description">
-                  Minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat tarad limino ata
+                  집에서 간단하게 먹을 수 있는 칵테일 부터, 난이도가 어려운 칵테일까지
+                  여러가지 칵테일의 레시피를 공유하고 경험해보세요
                 </p>
               </div>
               <div className="col-lg-4 col-md-6 icon-box">
@@ -258,11 +224,10 @@ function Carousel() {
                   <i className="bi bi-bar-chart" />
                 </div>
                 <h4 className="title">
-                  <a href="">Sed ut perspiciatis</a>
+                  <a href="">자유로운 평가</a>
                 </h4>
                 <p className="description">
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur
+                  각종 양주와 칵테일 레시피들에 대한 개인의 자유로운 평가를 해보세요
                 </p>
               </div>
               <div className="col-lg-4 col-md-6 icon-box">
@@ -270,11 +235,10 @@ function Carousel() {
                   <i className="bi bi-binoculars" />
                 </div>
                 <h4 className="title">
-                  <a href="">Magni Dolores</a>
+                  <a href="">주류 구매 정보 공유</a>
                 </h4>
                 <p className="description">
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum
+                  다양한 지역에서 값싸게 주류를 구매할 수 있는 정보 공유해보세요
                 </p>
               </div>
               <div className="col-lg-4 col-md-6 icon-box">
@@ -282,11 +246,10 @@ function Carousel() {
                   <i className="bi bi-brightness-high" />
                 </div>
                 <h4 className="title">
-                  <a href="">Nemo Enim</a>
+                  <a href="">적극적인 의견 교환</a>
                 </h4>
                 <p className="description">
-                  At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                  blanditiis praesentium voluptatum deleniti atque
+                  주류, 칵테일 정보 글에서 다른 사람들과의 의견을 댓글로 교류해보세요ㄴ
                 </p>
               </div>
               <div className="col-lg-4 col-md-6 icon-box">
@@ -294,11 +257,10 @@ function Carousel() {
                   <i className="bi bi-calendar4-week" />
                 </div>
                 <h4 className="title">
-                  <a href="">Eiusmod Tempor</a>
+                  <a href="">자유로운 커뮤니티</a>
                 </h4>
                 <p className="description">
-                  Et harum quidem rerum facilis est et expedita distinctio. Nam
-                  libero tempore, cum soluta nobis est eligendi
+                  주류 이야기 말고 다른 자유로운 주제로 커뮤니티를 이용해보세요
                 </p>
               </div>
             </div>
@@ -311,10 +273,10 @@ function Carousel() {
             <div className="section-title">
               <h2>Frequently Asked Questions</h2>
               <p>
-                Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex
-                aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos
-                quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                fugiat sit in iste officiis commodi quidem hic quas.
+              자주 묻는 질문(FAQ) 파트에서는 사용자들이 자주 문의하는 내용에 대한 답변을 제공합니다.
+              이 곳에서는 양주와 칵테일에 관한 정보, 서비스 이용 방법, 커뮤니티 참여 방법 등 
+              다양한 주제에 대해 답변하고 있습니다.
+              여기서 답을 찾지 못한 궁금한 사항이 있다면 언제든지 문의해 주세요.
               </p>
             </div>
             <div className="faq-list">
@@ -326,7 +288,7 @@ function Carousel() {
                     className="collapse"
                     data-bs-target="#faq-list-1"
                   >
-                    Non consectetur a erat nam at lectus urna duis?{" "}
+                    이 웹사이트는 무엇을 제공하나요?{" "}
                     <i className="bx bx-chevron-down icon-show" />
                     <i className="bx bx-chevron-up icon-close" />
                   </a>
@@ -336,9 +298,8 @@ function Carousel() {
                     data-bs-parent=".faq-list"
                   >
                     <p>
-                      Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id
-                      volutpat lacus laoreet non curabitur gravida. Venenatis lectus
-                      magna fringilla urna porttitor rhoncus dolor purus non.
+                    저희 웹사이트는 양주와 칵테일을 사랑하는 이들을 위한 정보 및 커뮤니티 플랫폼입니다.
+                    다양한 양주 정보, 칵테일 레시피 등의 정보를 제공하여 사용자들의 주류 문화 경험을 풍부하게 만들어 줍니다.
                     </p>
                   </div>
                 </li>
@@ -349,7 +310,7 @@ function Carousel() {
                     data-bs-target="#faq-list-2"
                     className="collapsed"
                   >
-                    Feugiat scelerisque varius morbi enim nunc?{" "}
+                    어떻게 칵테일을 만들 수 있나요?{" "}
                     <i className="bx bx-chevron-down icon-show" />
                     <i className="bx bx-chevron-up icon-close" />
                   </a>
@@ -359,11 +320,8 @@ function Carousel() {
                     data-bs-parent=".faq-list"
                   >
                     <p>
-                      Dolor sit amet consectetur adipiscing elit pellentesque
-                      habitant morbi. Id interdum velit laoreet id donec ultrices.
-                      Fringilla phasellus faucibus scelerisque eleifend donec
-                      pretium. Est pellentesque elit ullamcorper dignissim. Mauris
-                      ultrices eros in cursus turpis massa tincidunt dui.
+                    저희 웹사이트에는 집에서 손쉽게 만들 수 있는 다양한 칵테일 레시피가 있습니다.
+                    각 레시피에는 필요한 재료와 조리법이 자세히 안내되어 있습니다.
                     </p>
                   </div>
                 </li>
@@ -374,7 +332,7 @@ function Carousel() {
                     data-bs-target="#faq-list-3"
                     className="collapsed"
                   >
-                    Dolor sit amet consectetur adipiscing elit?{" "}
+                    양주와 칵테일 외에 다른 주제에 대해 토론할 수 있나요?{" "}
                     <i className="bx bx-chevron-down icon-show" />
                     <i className="bx bx-chevron-up icon-close" />
                   </a>
@@ -384,12 +342,10 @@ function Carousel() {
                     data-bs-parent=".faq-list"
                   >
                     <p>
-                      Eleifend mi in nulla posuere sollicitudin aliquam ultrices
-                      sagittis orci. Faucibus pulvinar elementum integer enim. Sem
-                      nulla pharetra diam sit amet nisl suscipit. Rutrum tellus
-                      pellentesque eu tincidunt. Lectus urna duis convallis
-                      convallis tellus. Urna molestie at elementum eu facilisis sed
-                      odio morbi quis
+                    네, 물론입니다! Bar Buddy는 주류와 칵테일 이야기뿐만 아니라 
+                    자유롭게 다양한 주제에 대해 토론하고 이야기할 수 있는 공간입니다.
+                    생활 팁, 취미 활동, 일상 이야기 등 다양한 주제를 다루며 
+                    사용자들끼리의 소통과 교류를 즐기는 곳입니다.
                     </p>
                   </div>
                 </li>
@@ -400,8 +356,8 @@ function Carousel() {
                     data-bs-target="#faq-list-4"
                     className="collapsed"
                   >
-                    Tempus quam pellentesque nec nam aliquam sem et tortor
-                    consequat? <i className="bx bx-chevron-down icon-show" />
+                    어떻게 커뮤니티에 참여할 수 있나요?
+                    <i className="bx bx-chevron-down icon-show" />
                     <i className="bx bx-chevron-up icon-close" />
                   </a>
                   <div
@@ -410,10 +366,9 @@ function Carousel() {
                     data-bs-parent=".faq-list"
                   >
                     <p>
-                      Molestie a iaculis at erat pellentesque adipiscing commodo.
-                      Dignissim suspendisse in est ante in. Nunc vel risus commodo
-                      viverra maecenas accumsan. Sit amet nisl suscipit adipiscing
-                      bibendum est. Purus gravida quis blandit turpis cursus in.
+                    저희 커뮤니티는 누구나 자유롭게 참여할 수 있습니다. 
+                    회원 가입 후, 양주 및 칵테일에 대한 이야기를 나누거나 
+                    다른 사용자와 의견을 공유할 수 있습니다.
                     </p>
                   </div>
                 </li>
@@ -424,8 +379,7 @@ function Carousel() {
                     data-bs-target="#faq-list-5"
                     className="collapsed"
                   >
-                    Tortor vitae purus faucibus ornare. Varius vel pharetra vel
-                    turpis nunc eget lorem dolor?{" "}
+                    웹사이트에 관련된 문의사항이나 제안사항이 있을 때 어떻게 연락할 수 있나요?{" "}
                     <i className="bx bx-chevron-down icon-show" />
                     <i className="bx bx-chevron-up icon-close" />
                   </a>
@@ -435,10 +389,7 @@ function Carousel() {
                     data-bs-parent=".faq-list"
                   >
                     <p>
-                      Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris
-                      vitae ultricies leo integer malesuada nunc vel. Tincidunt eget
-                      nullam non nisi est sit amet. Turpis nunc eget lorem dolor
-                      sed. Ut venenatis tellus in metus vulputate eu scelerisque.
+                    웹사이트에 관련된 모든 문의사항이나 제안사항은 연락 페이지를 통해 보내주시면 신속하게 처리해 드리겠습니다.
                     </p>
                   </div>
                 </li>
@@ -456,7 +407,7 @@ function Carousel() {
             <div className="row">
               <div className="col-lg-3 col-md-6">
                 <div className="footer-info">
-                  <h3>Groovin</h3>
+                  <h3>BarBuddy</h3>
                   <p>
                     A108 Adam Street <br />
                     NY 535022, USA
@@ -568,7 +519,6 @@ function Carousel() {
       {/* Vendor JS Files */}
       {/* Template Main JS File */}
     </>
-
   );
 }
 
