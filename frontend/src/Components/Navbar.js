@@ -49,7 +49,7 @@ function Navbar() {
               </a>
             </li>
           </ul>
-          {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+          {showLogin && <LoginModal onClose={() => setShowLogin(false)} />} {/* 로그인 모달 표시 */}
           <i className="bi bi-list mobile-nav-toggle" />
         </nav>
       </div>

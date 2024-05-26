@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './Carousel';
-import Navbar from './Components/Navbar.js';
+import Navbar from './Components/Navbar';
 import SpiritList from './Components/Spirit/SpiritList';
 import AddSpiritForm from './Components/Spirit/AddSpiritForm';
 import SpiritDetails from './Components/Spirit/SpiritDetails';
@@ -11,6 +11,8 @@ import CocktailList from './Components/Cocktail/CocktailList';
 import AddCocktailForm from './Components/Cocktail/AddCocktailForm';
 import CocktailDetails from './Components/Cocktail/CocktailDetails';
 import EditCocktailForm from './Components/Cocktail/EditCocktailForm';
+
+import Bars from './Components/Bars/Bars';
 
 function App() {
   return (
@@ -23,15 +25,13 @@ function App() {
           <Route path="/spirits/add" element={<AddSpiritForm />} />
           <Route path="/spirits/:id" element={<SpiritDetails />} />
           <Route path="/spirits/:id/edit" element={<EditSpiritForm />} />
-          
           <Route path="/cocktails" element={<CocktailList />} />
           <Route path="/cocktails/add" element={<AddCocktailForm />} />
           <Route path="/cocktails/:id" element={<CocktailDetails />} />
           <Route path="/cocktails/:id/edit" element={<EditCocktailForm />} />
-          <Route path="/bars" element={<div>Bars</div>} />
+          <Route path="/bars" element={<Bars />} />
         </Routes>
       </div>
-      
     </Router>
   );
 }

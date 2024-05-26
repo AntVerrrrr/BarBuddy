@@ -1,0 +1,54 @@
+.bars-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map-container {
+  width: 100%;
+  height: calc(100vh - 60px); /* Adjust height as needed */
+}
+
+.info-window {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: #333;
+  text-align: left;
+  font-size: 14px;
+  max-width: 250px; /* 최대 너비 조정 */
+  word-wrap: break-word; /* 긴 단어가 잘리도록 설정 */
+  word-break: keep-all; /* 단어가 잘리지 않도록 설정 */
+  white-space: normal; /* 텍스트가 줄바꿈되도록 설정 */
+}
+
+.info-window h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+.info-window p {
+  margin: 8px 0;
+  line-height: 1.6; /* 텍스트 가독성을 위해 추가 */
+}
+
+.info-window button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.info-window button:hover {
+  background-color: #555;
+}
