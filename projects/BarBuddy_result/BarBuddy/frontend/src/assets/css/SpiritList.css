@@ -1,0 +1,95 @@
+/* General Styles */
+body {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-family: 'Merriweather', serif;
+  color: #ffd700;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.add-spirit-link {
+  display: block;
+  width: 200px;
+  margin: 20px auto;
+  padding: 10px;
+  text-align: center;
+  background-color: #ffd700;
+  color: #1a1a1a;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.add-spirit-link:hover {
+  background-color: #e0c200;
+}
+
+.spirit-list-container {
+  margin-top: 100px; /* Adjust the margin to avoid overlap with the navbar */
+  padding: 20px;
+}
+
+/* Grid Layout for the Spirits */
+.spirit-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust grid to be responsive */
+  gap: 20px;
+}
+
+/* Spirit Card Styling */
+.spirit-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.spirit-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.spirit-card img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.spirit-card h2 {
+  font-family: 'Merriweather', serif;
+  color: #ffd700;
+  margin-top: 10px;
+}
+
+.spirit-card p {
+  margin: 5px 0;
+  color: #e0e0e0;
+}
+
+.spirit-card a {
+  display: block;
+  color: #ffd700;
+  text-decoration: none;
+  margin-top: 10px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.spirit-card a:hover {
+  color: #e0c200;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
