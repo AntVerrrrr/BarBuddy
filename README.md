@@ -1,30 +1,46 @@
-# React + TypeScript + Vite
+- 요약
+    - 사용자가 음료 제조의 재미를 발견하고, 칵테일 만들기 기술을 개발하며, 동시에 음료에 대한 깊은 지식을 얻을 수 있도록 설계되었습니다. "BarBuddy"는 정보 제공과 사용자 참여를 모두 강화하는 플랫폼으로서, 음료와 칵테일을 사랑하는 모든 이들에게 가치 있는 자원이 되고자 합니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- 사용 대상
+    - **칵테일 애호가**: 자택에서 다양한 칵테일을 만들어보고 싶은 개인들.
+    - **바텐더 및 음료 산업 종사자**: 전문적인 지식을 더하거나 메뉴에 새로운 칵테일을 추가하고자 하는 바텐더.
+    - **음료에 관심 있는 일반인**: 다양한 종류의 양주와 칵테일에 대한 정보를 배우고 싶어하는 사람들.
 
-Currently, two official plugins are available:
+- 문제 의식
+    - **정보의 접근성 증대**: 칵테일과 양주에 대한 정보를 쉽게 접할 수 있도록 하여, 사용자들이 음료 문화를 더 쉽게 탐험할 수 있도록 합니다.
+    - **교육적 가치 제공**: 사용자가 자신의 음료 제조 기술을 향상시킬 수 있도록 교육적인 콘텐츠를 제공합니다.
+    - **커뮤니티 구축**: 동일한 관심사를 가진 사용자들이 정보를 교환하고 경험을 공유할 수 있는 플랫폼을 제공합니다.
+    
+- 제공 서비스
+    - **사용자 인증 서비스**
+        - 로그인 및 회원가입 기능을 통해 사용자 인증을 관리하며, 보안을 위해 비밀번호 암호화를 제공합니다.
+    - **양주 상세 정보 제공**
+        - 다양한 양주에 대한 상세 정보를 제공하며, 사용자가 선택한 양주로 만들 수 있는 칵테일을 카드 섹션 형식으로 보여줍니다.
+    - **칵테일 및 안주 정보 제공**
+        - 칵테일 상세 보기에서는 해당 칵테일과 잘 어울리는 안주를 제안하고, 안주 상세 보기에서는 안주에 대한 자세한 정보를 제공합니다.
+    - **동적 검색 기능**
+        - 양주, 칵테일, 안주 등을 검색할 수 있는 기능을 제공하여, 사용자가 원하는 정보를 쉽게 찾을 수 있도록 돕습니다.
+    - **커뮤니티 상호작용**
+        - 사용자가 게시글을 작성하고 다른 사용자와 상호작용할 수 있는 커뮤니티 포럼을 제공합니다.
+    - **관리자 대시보드**
+        - 관리자가 콘텐츠와 사용자 계정을 효율적으로 관리할 수 있는 대시보드를 제공합니다.
+        
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 사용 기술 및 라이브러리
 
-## Expanding the ESLint configuration
+- **프론트엔드**: React.js
+- **백엔드**: Node.js와 Express.js
+- **데이터베이스**: MySQL (MySQL Workbench를 통한 관리 포함)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🖥 담당한 기능 (BE)
 
-- Configure the top-level `parserOptions` property like this:
+- Express를 사용하여 로그인 및 회원가입 기능 구현, bcrypt로 비밀번호 암호화 및 세션 관리.
+- 사용자가 양주를 선택하면, 해당 양주로 만들 수 있는 칵테일들이 카드 섹션으로 표시됩니다. React와 CSS를 사용하여 각 칵테일 카드를 동적으로 생성하고 스타일링합니다.
+- 사용자가 칵테일 카드를 선택하면, 칵테일의 상세 페이지로 이동합니다. 이 페이지에는 칵테일에 잘 어울리는 안주 추천이 카드 섹션으로 표시됩니다. 페이지 간 라우팅은 React Router를 사용하여 구현합니다.
+- 안주 추천 카드를 선택하면, 해당 안주의 상세 정보 페이지로 이동합니다. 여기서는 안주의 상세 설명과 구매 정보 등을 제공합니다.
+- Node.js와 Express를 사용하여 검색 요청을 처리하고, MySQL 데이터베이스에서 양주, 칵테일, 안주 정보를 검색하는 API를 구현함.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## 🏆 수상
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- 장려상, 2024 경북 네트워크형 캠퍼스 SW 아카데미 풀스텍 개발자 양성과정 팀프로젝트
+- 장려상, 4기 팀프로젝트 성과공유회
